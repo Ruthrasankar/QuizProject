@@ -1,0 +1,99 @@
+<style>
+
+    body{
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bolder;
+    }
+
+    .title{
+        font-size: larger;
+        color: red;
+        text-align: center;
+    }
+
+    .searchBar{
+        position: relative;
+        width: 300px;
+        height: 40px;
+        left: 39%;
+        margin-bottom: 22px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: larger;
+        font-weight: bolder;
+
+
+    }
+
+    .dataBox{
+        display: grid;
+        grid-template-columns: repeat(auto-fill , minmax(310px,1fr));
+        grid-template-rows: auto;
+        row-gap: 4px;
+        column-gap: 4px;
+        background-color: white;
+        text-align: center;
+    }
+
+    .usersDataDiv{
+        background-color: antiquewhite;
+    }
+
+    a{
+        position: absolute;
+        top: 1%;
+        left: 2%;
+        padding: 6px 6px 6px 6px;
+    }
+    a:hover{
+        border: solid;
+    }
+
+</style>
+
+<br><div class="title"><h2>Users list </h2> </div><br>
+<div class=""> <input class="searchBar" id="searchBar" type="text" placeholder="Search" onkeyup="searchBarFn()"> 
+    
+</div>
+<div class="DataDiv">
+    <div class="dataBox">
+        <% data.forEach((UsersDetails) => {%>
+            <div class="usersDataDiv" id = "usersDataDiv">
+
+                <p id="info">
+                     <%= UsersDetails.name %> <br>
+                    <br> <%= UsersDetails.mobile %> <br> 
+                    <br> <%= UsersDetails.email %> <br>
+                 </p>
+
+            </div>
+        <%})
+    
+    %>
+   </div>
+</div>
+<div>
+    <a href="/admins" class="backLink">Back</a>
+</div>
+<script>
+
+    function searchBarFn() {
+        var searchInput = document.getElementById("searchBar").value.toLowerCase()
+        var dataSet = document.getElementById("dataBox")
+        var data = document.querySelectorAll(".usersDataDiv")
+        var info = document.getElementsByTagName("p")
+
+        for (var i = 0 ; i<info.length ;i++) {
+            var everyInfo = data[i].getElementsByTagName("p")[0]
+            if(everyInfo){
+                var match = everyInfo.textContent || everyInfo.innerHTML
+
+                if(match.toLowerCase().indexOf(searchInput) > -1){
+                    data[i].style.display = ""
+                }else {
+                    data[i].style.display = "none"
+                }
+            }
+        }
+    }
+
+</script>

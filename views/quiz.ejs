@@ -1,0 +1,430 @@
+<style>
+
+    body{
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bolder;
+    }
+
+    .timer{
+        font-size: large;
+    }
+    .timeSpan{
+        background-color: red;
+        text-align: center;
+        padding: 9px 12px 9px 12px;
+        color: white;
+    }
+    .timerBtn{
+        color: white;
+        background-color: darkgreen;
+        border: none;
+        height: 30px;
+        width: 90px;
+        border-radius: 12px;
+        font-weight: bold;
+       
+    }
+    .timerBtn:hover{
+        border-radius: 0px;
+    }
+
+    .q-a-container{
+        position: absolute;
+        text-align: center;
+        width: 90vw;
+        left: 5%;
+        background-color: rgb(252, 236, 223);
+        border-radius: 12px;
+        box-shadow: 0 6px 6px 0 rgba(0,0,0,0.3);
+        top: 6%;
+    }
+
+    .finishLink{
+        font-size: larger;
+        font-weight: bolder;
+    }
+
+    .answers-options{
+        display: grid;
+        justify-content: center;
+        grid-template-columns: repeat(2,200px);
+        column-gap: 90px;
+        row-gap: 20px;
+        padding-bottom: 3%;
+    }
+
+    .Answer-space{
+        position: relative;
+        background-color: rgb(253, 207, 167);
+        padding: 2%;
+        font-size: larger;
+        height: 3vw;
+    }
+
+    .Answer-btn{
+        padding: 12px;
+        border: none;
+        background-color: white;
+        font-size: 16px;
+    }
+
+    .Answer-btn:hover {
+        border: solid;
+    }
+
+    .question_space{
+        display: grid;
+        position: relative;
+        height: 4vw;
+        padding: 12px;
+        font-size: larger;
+    }
+
+    .Submit_btn{
+        position: absolute;
+        bottom: 24%;
+        right: 44%;
+        height: 6vh;
+        font-size: larger;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bolder;
+        background-color:coral;
+        border: none;
+        color: white;
+        border-radius: 6px;
+    }
+
+    .Submit_btn:hover {
+        opacity: 0.6;
+    }
+
+    .Score {
+        display: grid;
+        position: absolute;
+        grid-template-columns: repeat(2,160px);
+        grid-template-rows: repeat(2,60px);
+        row-gap: 2px;
+        column-gap: 2px;
+        color: white;
+        bottom: 0%;
+        text-align: center;
+        right: 36%;
+    }
+
+    .col1 {
+        background-color: coral;
+     
+    }
+
+    .Ques {
+        background-color: coral;
+        height: 30px;
+        text-align: center;
+        font-size: larger;
+    }
+    .card {
+        position: absolute;
+        right: 39%;
+        box-shadow: 0 12px 12px 0 rgba(0,0,0,0.4);
+        top: 30%;
+        color : red;
+        background-image: linear-gradient(gold,rgba(255, 255, 255, 0.763));
+        width: 20%;
+        height : 30%;
+        text-align: center;
+        padding: 12px 12px 12px 12px ;
+        border-radius: 12px;
+        transition: 0.6ms;
+
+    }
+
+    .card:hover{
+        box-shadow: 0 18px 18px 0 rgba(0,0,0,0.6);
+    }
+
+
+    .h3 {
+        position: absolute;
+        padding: 12px 12px 12px 12px;
+    }
+
+</style>
+
+
+
+<div class = "entire-container">
+    <div class="q-a-container" id = "q-a-container">
+        <div id="timer" class="timer">
+            <p>Time left : <span class="timeSpan" id="timeSpan">00</span> <span> <button class="timerBtn" id="timerBtn">Start timer </button> </span></p>
+        </div>
+        <div class="question_space" id="question_space">
+            <p>Question space</p>
+        </div>
+            <div class="answers-options">
+                <button class="Answer-btn" id="Answer-btn-1" name="answer-btn">Answer1</button>
+                <button class="Answer-btn" id="Answer-btn-2" name="answer-btn">Answer2</button>
+                <button class="Answer-btn" id="Answer-btn-3" name="answer-btn">Answer3</button>
+                <button class="Answer-btn" id="Answer-btn-4" name="answer-btn">Answer4</button>
+            </div>
+        
+        <div class="Answer-space" id="Answer-space"> Answer </div>
+    </div>
+</div>
+
+<div> <button class= "Submit_btn" id="Submit_btn">Submit Answer</button> </div>
+<div class = "Score" id = "Score_id">
+    <div><h3 class = "col1">Total Number of Questions</h3></div>
+    <div><h3 class = "col1">Correctly Answered</h3></div>
+    <div class="Ques" id="Ques_no">3</div>
+    <div class="Ques" id="Crt_ans_number">0</div>
+</div>
+
+<div class="card" id = "card">
+    <div class="score_displayer" id = "score_displayer">
+        <h3>You have Scored</h3>
+        <h1 id="score_points" name="score">0</h1>
+        <h3>Points</h3>
+    </div>
+    <div>
+        <a href="/" class="finishLink">Finish</a>
+    </div>
+</div>
+
+
+
+
+<script>
+
+// --------------------------------------------------Json Questions--------------------------------------------------
+
+let quiz_questions = [{
+    id : 0,
+    question : "Who is the king of forest ?",
+    answers : [{option_1 : "Tiger" , correct : false},
+                {option_2 : "Elephant" , correct : false},
+                {option_3 : "Cheetah" , correct : false},
+                {option_4 : "Lion" , correct : true}]
+},
+{
+    id : 1,
+    question : "Among the following which one is the strongest animal from cat family?",
+    answers : [{option_1 : "Wolf" , correct : false},
+                {option_2 : "Cat" , correct : false},
+                {option_3 : "Tiger" , correct : true},
+                {option_4 : "Leopard" , correct : false}]
+},
+{
+    id : 2,
+    question : "Which is the biggest land-living animal ?",
+    answers : [{option_1 : "Giraffee" , correct : false},
+                {option_2 : "Elephant" , correct : true},
+                {option_3 : "Camel" , correct : false},
+                {option_4 : "Bear" , correct : false}]
+}]
+//----------------------------------------------------  JS  --------------------------------------------------------
+var start = true
+
+//getting Submit_button and setting is as global 
+window.Submit_button = document.getElementsByClassName("Submit_btn")[0]
+//hiding Submit_button
+Submit_button.style.visibility = "hidden"
+//getting Crt_ans_number
+window.Crt_ans_number = document.getElementById("Crt_ans_number")
+//getting q_a_container
+window.q_a_container = document.getElementById("q-a-container")
+//getting final answer displayer_card & hiding it
+window.final_answer_displayer_card = document.getElementById("card")
+final_answer_displayer_card.hidden = true
+//getting score_points
+window.score_points = document.getElementById("score_points")
+
+window.seconds;
+window.timeSec = 20;
+//getting timeSpan
+window.timeSpan = document.getElementById("timeSpan")
+
+//getting timerBtn 
+window.timerBtn = document.getElementById("timerBtn")
+timerBtn.addEventListener("click",timerBtnFn)
+
+
+window.timer = function(seconds){
+    window.countDown = setInterval(startTimer,1000)
+
+    function startTimer(){
+        timeSpan.innerHTML = seconds
+        if(seconds < 1){
+            timeSpan.innerHTML = "Time Up"
+            clearInterval(countDown)
+        }
+        seconds--
+
+    }
+}
+
+function timerBtnFn(){
+    timer(timeSec)
+    timerBtn.style.visibility = "hidden"
+}
+
+function q_iterator(id) {
+    //getting html buttons in js (using getElementById)
+    window.answer_btn_1 = document.getElementById('Answer-btn-1')//window - to declare variable in global scope
+    window.answer_btn_2 = document.getElementById('Answer-btn-2')
+    window.answer_btn_3 = document.getElementById('Answer-btn-3')
+    window.answer_btn_4 = document.getElementById('Answer-btn-4')
+
+    //getting question and answer space
+    window.answer_space = document.getElementById("Answer-space") 
+    let question_space = document.getElementById("question_space")
+
+    //getting the "correct or wrong (iscorrect?)" option
+    answer_btn_1.value = quiz_questions[id].answers[0].correct
+    answer_btn_2.value = quiz_questions[id].answers[1].correct
+    answer_btn_3.value = quiz_questions[id].answers[2].correct
+    answer_btn_4.value = quiz_questions[id].answers[3].correct
+
+
+    //to get the selected option
+    window.selected //or var selected = ""
+    /*
+    if(answer_btn_1) {
+        answer_btn_1.addEventListener('click' , changer)
+    }else{
+        console.log("Sorry")
+    }
+    */
+
+    answer_btn_1.addEventListener("click" , changer_1)
+    answer_btn_2.addEventListener("click" , changer_2)
+    answer_btn_3.addEventListener("click" , changer_3)
+    answer_btn_4.addEventListener("click" , changer_4)
+
+// these changer_1,2,3,4 fns are to change the button style when selected (:active)
+
+
+    function changer_1 () {
+        if (answer_btn_1.value) {
+            answer_btn_1.style.backgroundColor = "coral"
+            answer_btn_1.style.color = "white" 
+            answer_btn_2.style = null
+            answer_btn_3.style = null
+            answer_btn_4.style = null
+
+        }
+        answer_space.innerText =  "The chosen option is : " + answer_btn_1.innerText
+        answer_space.style.color = "#e63900"
+        selected = answer_btn_1.value
+        Submit_button.style.visibility = "visible"
+
+    }
+
+    function changer_2 () {
+        if (answer_btn_2.value) {
+            answer_btn_2.style.backgroundColor = "coral"
+            answer_btn_2.style.color = "white"
+            answer_btn_1.style = null
+            answer_btn_3.style = null
+            answer_btn_4.style = null
+
+        }
+        answer_space.innerText =  "The chosen option is : " + answer_btn_2.innerText
+        answer_space.style.color = "#e63900"
+        selected = answer_btn_2.value
+
+        Submit_button.style.visibility = "visible"
+    }
+
+    function changer_3 () {
+        if (answer_btn_3.value) {
+            answer_btn_3.style.backgroundColor = "coral"
+            answer_btn_3.style.color = "white"
+            answer_btn_1.style = null
+            answer_btn_2.style = null
+            answer_btn_4.style = null
+
+        }
+        answer_space.innerText =  "The chosen option is : " + answer_btn_3.innerText
+        answer_space.style.color = "#e63900"
+        selected = answer_btn_3.value
+        Submit_button.style.visibility = "visible"
+    }
+
+    function changer_4 () {
+        if (answer_btn_4.value) {
+            answer_btn_4.style.backgroundColor = "coral"
+            answer_btn_4.style.color = "white"
+            answer_btn_1.style = null
+            answer_btn_2.style = null
+            answer_btn_3.style = null
+
+        }
+        answer_space.innerText =  "The chosen option is : " + answer_btn_4.innerText
+        answer_space.style.color = "#e63900"
+        selected = answer_btn_4.value
+        Submit_button.style.visibility = "visible"
+    }
+
+    //setting js question in html question space
+    question_space.innerText = quiz_questions[id].question
+    //setting js answer option in html answer option space
+    answer_btn_1.innerText = quiz_questions[id].answers[0].option_1
+    answer_btn_2.innerText = quiz_questions[id].answers[1].option_2
+    answer_btn_3.innerText = quiz_questions[id].answers[2].option_3
+    answer_btn_4.innerText = quiz_questions[id].answers[3].option_4
+
+}
+
+if(start) {
+    q_iterator(0)
+}
+
+window.id = 0
+//array in which crt options are stored
+var arr1 = []
+
+var clicked_times = 0
+Submit_button.addEventListener("click" , Submit_button_fn)
+function Submit_button_fn () {
+    start = false
+    if (start != true & id<2) {
+        id++
+        q_iterator(id)
+        //console.log(id)
+        
+
+    }
+
+    if (selected === "true"){
+        arr1.push("Hi")
+        //console.log(arr1)
+        Crt_ans_number.innerText = arr1.length
+    }
+
+    answer_btn_1.style = null
+    answer_btn_2.style = null
+    answer_btn_3.style = null
+    answer_btn_4.style = null
+    answer_space.style = null
+    answer_space.innerText = "Answer"
+    Submit_button.style.visibility = "hidden"
+
+    console.log("clicked")
+    clicked_times++
+    if (clicked_times === 3) {
+        Submit_button.hidden = true
+        q_a_container.hidden = true
+        score_points.innerText = Crt_ans_number.innerText
+        final_answer_displayer_card.hidden = false
+        
+    }
+    clearInterval(countDown)
+    timer(timeSec)
+
+
+} 
+
+
+
+</script>
+
